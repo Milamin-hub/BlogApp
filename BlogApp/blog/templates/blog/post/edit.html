@@ -1,0 +1,21 @@
+{% extends "blog/base.html" %}
+
+{% block title %}Редактировать пост{% endblock %}
+
+{% block content %}
+
+<form method="POST">
+    {% csrf_token %}
+    <div class="alert alert-dark">
+        <p>
+            <input class="form-control alert-secondary" type="text" name="title" value="{{post.title}}"/>
+        </p>
+        <p>
+            <textarea class="form-control alert-secondary" name="body">{{post.body}}</textarea>
+        </p>
+        <input type="submit" value="Сохранить" class="btn alert-success" >
+    </div>
+</form>
+
+{% endblock %}
+

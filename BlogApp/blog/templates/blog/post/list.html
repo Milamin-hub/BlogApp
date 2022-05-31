@@ -1,0 +1,35 @@
+{% extends "blog/base.html" %}
+{% block title %}BlogApp{% endblock %}
+{% block content %}
+    {% for post in posts %}
+        <div class="my-4 container">
+            <div class="row">
+                <div class="col-5 offset-0">
+                    <span class="alert alert-success">{{ post.title }}</span>
+                </div>
+                <div class="col-5 offset-2 text-end">
+                    <span class="alert alert-success">{{ post.author }}</span>
+                    <span class="alert alert-success">{{ post.created }}</span>
+                </div>
+                <div class="my-2 container">
+                    <div class="my-1 container alert alert-success">
+                        <p class="alert alert-success">
+                            {{ post.body }}
+                        </p>
+                        {% if request.user.is_authenticated %}
+                            {% if user == post.author %}
+                            <form method="Post" class="text-end">
+                                {% csrf_token %}
+                                <a href="delete/{{post.id}}"  class="mx-3 text-danger text-decoration-none">Удалить</a>
+                                <a href="edit/{{post.id}}"  class="text-warning  text-decoration-none">Изменить</a>
+                            </form>
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+    {% include "blog/pagination.html" with page=page_obj %}
+{% endblock %}
+
